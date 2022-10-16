@@ -19,8 +19,9 @@ namespace BowlingTest
         [TestMethod]
         public void canThrowBall()
         {
-            ThrowMultiple(0,1);
-            Assert.AreEqual(0, game.CalcScore());
+            game.Throws(7);
+        //    ThrowMultiple(0,2);
+            Assert.AreEqual(7, game.CalcScore());
 
         }
 
@@ -46,7 +47,7 @@ namespace BowlingTest
         public void canScoreSpareAndOne()
         {
             throwSpare();
-            Assert.AreEqual(11, game.CalcScore());
+            Assert.AreEqual(16, game.CalcScore());
         }
 
         [TestMethod]
@@ -76,7 +77,7 @@ namespace BowlingTest
         {
             game.Throws(7);
             game.Throws(3);
-            game.Throws(1);
+            game.Throws(3);
             ThrowMultiple(0, 17);
         }
     }

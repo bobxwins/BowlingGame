@@ -17,7 +17,7 @@ namespace Bowling
        
         static void Main(string[] args)
         {
-            int gameCount = 0;
+            
             BowlingGame[] games = new BowlingGame[4];
             games[0] = new BowlingGame();
             games[1] = new BowlingGame();
@@ -28,24 +28,21 @@ namespace Bowling
             games[2].ThrowOnes(games[2]);
             games[3].ThrowGutter(games[3]);
              
-         
-            //foreach (var item in games)
-            //{
-            //    Console.WriteLine(item.CalcScore());
-            //    Console.WriteLine("THE INDEX IS" + games.Max().CalcScore());
-            //}
         }
-        public int CalcScore ()
+        public int CalcScore()
         {
-             
+
             int score = 0;
             int throwIndex = 0;
-            for (int frame = 0; frame < 10; frame++)   
+            for (int frame = 0; frame < 10; frame++)
             {
-                if (SpareBool(throwIndex))
+                 
+                
+            if (SpareBool(throwIndex))
                 {
                     score += SpareScore(throwIndex);
                     throwIndex += 2;
+                    
                 }
                else if (StrikeBool(throwIndex))
                 {
@@ -56,6 +53,8 @@ namespace Bowling
                 {
                     score += NormalThrow(throwIndex);
                     throwIndex += 2;
+                    
+                  
                 }
                
             }
@@ -71,10 +70,12 @@ namespace Bowling
 
         private bool SpareBool(int throwIndex)
         {
-            return totalThrows[throwIndex] + totalThrows[throwIndex] + 1 == 10;
+            
+            return totalThrows[throwIndex] + totalThrows[throwIndex+1]  == 10;
         }
         private int StrikeScore(int throwIndex)
         {
+            
             return totalThrows[throwIndex] + totalThrows[throwIndex + 1] + totalThrows[throwIndex + 2];
         }
 
@@ -121,10 +122,14 @@ namespace Bowling
             game.Throws(1);
             game.ThrowMultiple(0, 16);
             Console.Write("Game 2:       ");
-            foreach (var item in game.totalThrows)
-            {
+             foreach (var item in game.totalThrows)
+                 {
+                 
                 Console.Write(item.ToString() + " ");
+                 
             }
+
+
             Console.Write("        Game score: " + game.CalcScore());
             Console.WriteLine();
         }
