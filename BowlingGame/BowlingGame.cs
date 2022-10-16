@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,28 @@ namespace Bowling
     {
         private int[] totalThrows = new int[21];
         private int currentThrow = 0;
-        BowlingGame game;
+         
+
+       
         static void Main(string[] args)
         {
-            Console.WriteLine("Der bowles!");
-           
+            int gameCount = 0;
+            BowlingGame[] games = new BowlingGame[4];
+            games[0] = new BowlingGame();
+            games[1] = new BowlingGame();
+            games[2] = new BowlingGame();
+            games[3] = new BowlingGame();
+            games[0].ThrowSpare(games[0]);
+            games[1].ThrowStrike(games[1]);
+            games[2].ThrowOnes(games[2]);
+            games[3].ThrowGutter(games[3]);
+             
+         
+            //foreach (var item in games)
+            //{
+            //    Console.WriteLine(item.CalcScore());
+            //    Console.WriteLine("THE INDEX IS" + games.Max().CalcScore());
+            //}
         }
         public int CalcScore ()
         {
@@ -71,7 +89,6 @@ namespace Bowling
         }
 
         public int Throws(int pins) {
-            Console.WriteLine(totalThrows[currentThrow++] = pins);
            return totalThrows[currentThrow++] = pins;        
         }
 
@@ -79,26 +96,68 @@ namespace Bowling
         {
             for (int i = 0; i < throwCount; i++)
             {
-                game.Throws(pinsDown);
-
+                Throws(pinsDown);
             }
-
+ 
         }
-        private void ThrowSpare()
+        private void ThrowSpare(BowlingGame game)
         {
             game.Throws(7);
-            game.Throws(3);
-            game.Throws(1);
-            ThrowMultiple(0, 17);
-        }
-        private void PrintGame()
-        {
-            for (int i = 0; i < currentThrow; i++)
+            game. Throws(3);
+            game. Throws(1);
+            game. ThrowMultiple(0, 17);
+            Console.Write("Game 1:       ");
+            foreach (var item in totalThrows)
             {
-          //      game.Throws(pinsDown);
-
+                Console.Write(item.ToString() + " ");
             }
+            Console.Write("         Game score: "+ game.CalcScore());
+            Console.WriteLine();
         }
+        private void ThrowStrike(BowlingGame game)
+        { 
+            game.Throws(10);
+            game.Throws(1);
+            game.Throws(1);
+            game.ThrowMultiple(0, 16);
+            Console.Write("Game 2:       ");
+            foreach (var item in game.totalThrows)
+            {
+                Console.Write(item.ToString() + " ");
+            }
+            Console.Write("        Game score: " + game.CalcScore());
+            Console.WriteLine();
+        }
+        private void ThrowOnes(BowlingGame game)
+        {
+           
+            game.ThrowMultiple(1, 20);
+            Console.Write("Game 3:       ");
+            foreach (var item in game.totalThrows)
+            {
+                Console.Write(item.ToString() + " ");
+            }
+            Console.Write("         Game score: " + game.CalcScore());
+            Console.WriteLine();
+        }
+        private void ThrowGutter(BowlingGame game)
+        {
+         
+            game.ThrowMultiple(0, 20);
+            Console.Write("Game 4:       ");
+            foreach (var item in game.totalThrows)
+            {
+                Console.Write(item.ToString() + " ");
+            }
+            Console.Write("         Game score: " + game.CalcScore());
+            Console.WriteLine();
+        }
+        //private void results()
+        //{
+        //    int winner = int.MaxValue;
+        //    //int loser =
+        //}
+    }
     }
 
-}
+
