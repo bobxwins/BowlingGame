@@ -33,21 +33,21 @@ namespace Bowling
                 
             if (SpareBool(throwIndex))
                 {
-                    score += SpareScore(throwIndex);
+                    score += 10 + throws[throwIndex + 2];
                     throwIndex += 2;
                     // 1 frame = 2 kast, hvis der spare
                      
                 }
                else if (StrikeBool(throwIndex))
                 {
-                    score += StrikeScore(throwIndex);
+                    score += 10 + throws[throwIndex + 1] + throws[throwIndex + 2];
                     throwIndex++;
                     // 1 frame = 1 kast hvis der strike
                     
                 }
                 else
                 {
-                    score += NormalThrow(throwIndex);
+                    score += throws[throwIndex] + throws[throwIndex + 1];
                     throwIndex += 2;
                     // 1 frame = 2 kast hvis ik der strike
                 }
@@ -57,32 +57,17 @@ namespace Bowling
             return score;
     
         }
-
-        private int SpareScore(int throwIndex)
-        {
-            return throws[throwIndex] + throws[throwIndex + 1] + throws[throwIndex + 2];
-        }
-
         private bool SpareBool(int throwIndex)
         {
             
             return throws[throwIndex] + throws[throwIndex+1]  == 10;
-        }
-        private int StrikeScore(int throwIndex)
-        {
-            
-            return throws[throwIndex] + throws[throwIndex + 1] + throws[throwIndex + 2];
+            // hvis 2 kast i 1 frame giver 10 = Spare
         }
 
         private bool StrikeBool(int throwIndex)
         {
             return throws[throwIndex] == 10;
-        }
-
-        private int NormalThrow(int throwIndex) // Hverken strike eller spare
-        {
-            return throws[throwIndex] + throws[throwIndex + 1];
-            // Point for 2 kast per frame
+            // hvis 1 kast  giver 10 = strike
         }
 
         public int Throw(int pins) {
