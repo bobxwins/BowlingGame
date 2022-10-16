@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bowling
 {
     public class BowlingGame
     {
-        private int[] totalThrows = new int[21];
+        private int[] throws = new int[21];
         private int currentThrow = 0;
-         
-
-       
+     
         static void Main(string[] args)
         {
             
@@ -42,87 +35,95 @@ namespace Bowling
                 {
                     score += SpareScore(throwIndex);
                     throwIndex += 2;
-                    
+                    // 1 frame = 2 kast, hvis der spare
+                     
                 }
                else if (StrikeBool(throwIndex))
                 {
                     score += StrikeScore(throwIndex);
                     throwIndex++;
+                    // 1 frame = 1 kast hvis der strike
+                    
                 }
                 else
                 {
                     score += NormalThrow(throwIndex);
                     throwIndex += 2;
-                    
-                  
+                    // 1 frame = 2 kast hvis ik der strike
                 }
                
             }
-
+          
             return score;
     
         }
 
         private int SpareScore(int throwIndex)
         {
-            return totalThrows[throwIndex] + totalThrows[throwIndex + 1] + totalThrows[throwIndex + 2];
+            return throws[throwIndex] + throws[throwIndex + 1] + throws[throwIndex + 2];
         }
 
         private bool SpareBool(int throwIndex)
         {
             
-            return totalThrows[throwIndex] + totalThrows[throwIndex+1]  == 10;
+            return throws[throwIndex] + throws[throwIndex+1]  == 10;
         }
         private int StrikeScore(int throwIndex)
         {
             
-            return totalThrows[throwIndex] + totalThrows[throwIndex + 1] + totalThrows[throwIndex + 2];
+            return throws[throwIndex] + throws[throwIndex + 1] + throws[throwIndex + 2];
         }
 
         private bool StrikeBool(int throwIndex)
         {
-            return totalThrows[throwIndex] == 10;
+            return throws[throwIndex] == 10;
         }
 
         private int NormalThrow(int throwIndex) // Hverken strike eller spare
         {
-            return totalThrows[throwIndex] + totalThrows[throwIndex + 1];
+            return throws[throwIndex] + throws[throwIndex + 1];
+            // Point for 2 kast per frame
         }
 
-        public int Throws(int pins) {
-           return totalThrows[currentThrow++] = pins;        
+        public int Throw(int pins) {
+            return throws[currentThrow++] = pins;
+            //Det kast man kaster er ligmed antal pins væltet,
+            // currentThrow++ bruges fordi for hver kast skal currentThrow stige med 1, starter med 0
+
         }
 
         private void ThrowMultiple(int pinsDown, int throwCount)
         {
             for (int i = 0; i < throwCount; i++)
             {
-                Throws(pinsDown);
+                Throw(pinsDown);
             }
  
         }
         private void ThrowSpare(BowlingGame game)
         {
-            game.Throws(7);
-            game. Throws(3);
-            game. Throws(1);
+            game.Throw(7);
+            game. Throw(3);
+            game. Throw(1);
             game. ThrowMultiple(0, 17);
             Console.Write("Game 1:       ");
-            foreach (var item in totalThrows)
+            foreach (var item in throws)
             {
+           
                 Console.Write(item.ToString() + " ");
             }
             Console.Write("         Game score: "+ game.CalcScore());
             Console.WriteLine();
+ 
         }
         private void ThrowStrike(BowlingGame game)
         { 
-            game.Throws(10);
-            game.Throws(1);
-            game.Throws(1);
+            game.Throw(10);
+            game.Throw(1);
+            game.Throw(1);
             game.ThrowMultiple(0, 16);
             Console.Write("Game 2:       ");
-             foreach (var item in game.totalThrows)
+             foreach (var item in game.throws)
                  {
                  
                 Console.Write(item.ToString() + " ");
@@ -138,7 +139,7 @@ namespace Bowling
            
             game.ThrowMultiple(1, 20);
             Console.Write("Game 3:       ");
-            foreach (var item in game.totalThrows)
+            foreach (var item in game.throws)
             {
                 Console.Write(item.ToString() + " ");
             }
@@ -150,7 +151,7 @@ namespace Bowling
          
             game.ThrowMultiple(0, 20);
             Console.Write("Game 4:       ");
-            foreach (var item in game.totalThrows)
+            foreach (var item in game.throws)
             {
                 Console.Write(item.ToString() + " ");
             }

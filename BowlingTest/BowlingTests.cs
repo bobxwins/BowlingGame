@@ -19,8 +19,7 @@ namespace BowlingTest
         [TestMethod]
         public void canThrowBall()
         {
-            game.Throws(7);
-        //    ThrowMultiple(0,2);
+            game.Throw(7);
             Assert.AreEqual(7, game.CalcScore());
 
         }
@@ -62,22 +61,22 @@ namespace BowlingTest
             for (int i = 0; i < throwCount; i++)
             {
                 
-                game.Throws(pinsDown);
+                game.Throw(pinsDown);
             
             }
         }
         private void throwStrike ()
         {
-            game.Throws(10);
-            game.Throws(1);
-            game.Throws(1);
+            game.Throw(10);
+            game.Throw(1);
+            game.Throw(1);
             ThrowMultiple(0, 16);
         }
         private void throwSpare()
         {
-            game.Throws(7);
-            game.Throws(3);
-            game.Throws(3);
+            game.Throw(7);
+            game.Throw(3);
+            game.Throw(3);
             ThrowMultiple(0, 17);
         }
     }
